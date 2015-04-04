@@ -22,6 +22,11 @@
 	String title = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE));
 	String zoom = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ZOOM_PERCENT));
 	String duration = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ZOOM_DURATION));
+	String actSwitch = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ACT_SWITCH));
+	String titleFontSize = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_FONT_SIZE));
+	String titleLineHeight = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_LINE_HEIGHT));
+	String detailFontSize = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_FONT_SIZE));
+	String detailLineHeight = String.valueOf(request.getAttribute(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_LINE_HEIGHT));
 %>
 <liferay-ui:success key="success" message="your-configuration-was-saved-sucessfully"/>
 <form action="<liferay-portlet:actionURL portletConfiguration='true' />" method="post">
@@ -36,8 +41,24 @@
 				<input name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE%>" type="text" style="width:30%;"  value="<%=title%>"/>
 			</li>
 			<li>
-				<span>描述：</span>
+				<span>标题文字大小(px)：</span>
+				<input name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_FONT_SIZE%>" type="number" style="width:30%;"  value="<%=titleFontSize%>"/>
+			</li>
+			<li>
+				<span>标题行高(px)：</span>
+				<input name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_LINE_HEIGHT%>" type="number" style="width:30%;"  value="<%=titleLineHeight%>"/>
+			</li>
+			<li>
+				<span>内容：</span>
 				<textarea name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL%>" style="width:30%;"><%=detail%></textarea>
+			</li>
+			<li>
+				<span>内容文字大小(px)：</span>
+				<input type="number" name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_FONT_SIZE%>" style="width:30%;" value="<%=detailFontSize%>"/>
+			</li>
+			<li>
+				<span>内容行高(px)：</span>
+				<input type="number" name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_LINE_HEIGHT%>" style="width:30%;" value="<%=detailLineHeight%>"/>
 			</li>
 			<li>
 				<span>背景色：</span>
@@ -58,6 +79,13 @@
 			<li>
 				<span>链接地址：</span>
 				<input name="<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_LINK%>" type="text" style="width:80%;"  value="<%=link%>"/>
+			</li>
+			<li>
+				<span>动画效果：</span>
+				<input name='<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ACT_SWITCH%>' 
+					type="radio" value="on" <%="on".equals(actSwitch) ? "checked":"" %> />开
+				<input name='<portlet:namespace/><%=ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ACT_SWITCH%>' 
+					type="radio" value="off" <%=!"on".equals(actSwitch) ? "checked":"" %>/>关
 			</li>
 			<li>
 				<span>背景动画(放大倍数)：</span>

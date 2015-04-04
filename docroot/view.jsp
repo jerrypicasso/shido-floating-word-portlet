@@ -21,6 +21,12 @@
 	String title = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE, StringPool.BLANK);
 	String zoom = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ZOOM_PERCENT, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ZOOM_PERCENT_DEFAULT_VAL);
 	String duration = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ZOOM_DURATION, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ZOOM_DURATION_DEFAULT_VAL);
+	
+	String actSwitch = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ACT_SWITCH, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_ACT_SWITCH_DEFAULT_VAL);
+	String titleFontSize = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_FONT_SIZE, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_FONT_SIZE_DEFAULT_VAL);
+	String titleLineHeight = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_LINE_HEIGHT, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_TITLE_LINE_HEIGHT_DEFAULT_VAL);
+	String detailFontSize = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_FONT_SIZE, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_FONT_SIZE_DEFAULT_VAL);
+	String detailLineHeight = preferences.getValue(ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_LINE_HEIGHT, ShidoFloatingWordConfigurationAction.SHIDO_FLOATING_WORD_DETAIL_LINE_HEIGHT_DEFAULT_VAL);
 %>
 
 <div id="<portlet:namespace/>shido-floating-word" class="shido-floating-word" 
@@ -34,11 +40,12 @@
 <%	
 	}
 %>
-		<div style="font-size:40px;"><%= title%></div>
+		<div style="font-size:<%= titleFontSize%>px;line-height:<%= titleLineHeight%>px;"><%= title%></div>
 <%
 	if(!StringPool.BLANK.equals(detail)) {
 %>
-		<br/><div style="font-size:16px;"><%= detail.replaceAll("\\n", "<br/>")%></div>
+		<br/>
+		<div style="font-size:<%= detailFontSize%>px;line-height:<%= detailLineHeight%>px;"><%= detail.replaceAll("\\n", "<br/>")%></div>
 <%	
 	}
 	if(!StringPool.BLANK.equals(link)) {
@@ -52,22 +59,25 @@
 
 <script>
 	$(document).ready(function() {
-		var controller = $.superscrollorama();
+		var actSwitch = <%= actSwitch%>;
 		var beginHeight = <%= height%>;
 		var beginWidth = 1920;
 		var endHeight = beginHeight*<%= zoom%>;
 		var endWidth = beginWidth*<%= zoom%>;
-		controller.addTween(
-				'#<portlet:namespace/>shido-floating-word', 
-				TweenMax.fromTo(
-						'#<portlet:namespace/>shido-floating-word', 
-						5, 
-						{css:{'background-size':beginWidth + 'px ' + beginHeight + 'px'}}, 
-						{css:{'background-size':endWidth + 'px ' + endHeight + 'px'}}
-				),
-				0,
-				0,
-				false
-		);
+		if(actSwitch === 'on') {
+			var controller = $.superscrollorama();
+			controller.addTween(
+					'#<portlet:namespace/>shido-floating-word', 
+					TweenMax.fromTo(
+							'#<portlet:namespace/>shido-floating-word', 
+							<%= duration%>, 
+							{css:{'background-size':beginWidth + 'px ' + beginHeight + 'px'}}, 
+							{css:{'background-size':endWidth + 'px ' + endHeight + 'px'}}
+					),
+					0,
+					0,
+					false
+			);
+		}
 	});
 </script>
