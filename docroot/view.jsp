@@ -59,7 +59,7 @@
 
 <script>
 	$(document).ready(function() {
-		var actSwitch = <%= actSwitch%>;
+		var actSwitch = '<%= actSwitch%>';
 		var beginHeight = <%= height%>;
 		var beginWidth = 1920;
 		var endHeight = beginHeight*<%= zoom%>;
